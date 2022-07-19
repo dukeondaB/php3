@@ -126,9 +126,9 @@ class UsersController extends Controller
             $file->storeAs('images/users', $filename);
             $user->avatar = $filename;
         }
-        else{
-            $user->avatar = '';
-        }
+//         else{
+//             $user->avatar = '';
+//         }
         $user->update();
         return redirect()->route('users.index');
     }
