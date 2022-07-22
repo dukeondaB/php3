@@ -20,7 +20,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="users">
+        <a class="nav-link" href="{{route('users.index')}}">
 
           <i class="mdi mdi-chart-pie menu-icon"></i>
           <span class="menu-title">User tĩnh</span>

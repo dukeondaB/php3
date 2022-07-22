@@ -31,7 +31,9 @@
         </div>
         <div class='form-group'>
             <label for="">Ngày sinh</label>
-            <input type="date" name='birthday' class='form-control' value="{{$user->birthday}}">
+            <input type="date" name='birthday' class='form-control' value="{{ date('Y-m-d', strtotime($user->birthday))}}"
+
+            >
         </div>
         <div class='form-group'>
             <label for="">SDT</label>
@@ -39,30 +41,43 @@
         </div>
         <div class='form-group'>
             <label for="">Ảnh đại diện</label>
-            <input type="file" name='avatar' class='form-control'value="{{$user->image}}">
+            <input type="file" name='avatar' class='form-control' value="{{$user->avatar}}">
+
+        </div>
+        <div class="form-group">
+            <label for="">Ảnh trước đấy nè:</label>
+            <img src="{{asset('images/users/'. $user->avatar)}}" width="150px" height="100px" alt="">
         </div>
         <div class='form-group'>
             <label for="">Phòng ban</label>
             <select name="room_id" class='form-control'>
                 @foreach ($room as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
+                    <option value="{{$item->id}}" {{isset($user)&& $user->room_id === $item->id ? 'selected':''}}>{{$item->name}}</option>
                 @endforeach
             </select>
         </div>
         <div class='form-group'>
             <label for="">Quyền</label>
-            <input type="radio" name='role' value="1">GĐ
-            <input type="radio" name='role' value="0">NV
+            <input type="radio" @if ($item->role == 1)
+                {{'checked'}}
+            @endif name='role' value="1">GĐ
+            <input type="radio" @if ($item->role == 0)
+                {{'checked'}}
+            @endif name='role' value="0">NV
         </div>
         <div class='form-group'>
             <label for="">Trạng thái</label>
-            <input type="radio" name='status' value="1">Kích hoạt
-            <input type="radio" name='status' value="0">K kích hoạt
+            <input type="radio" @if ($item->status == 1)
+                {{'checked'}}
+            @endif name='status' value="1">Kích hoạt
+            <input type="radio" @if ($item->status == 0)
+                {{'checked'}}
+            @endif name='status' value="0">K kích hoạt
         </div>
 
         <div>
-            <button class='btn btn-primary'>Tạo mới</button>
-            <button type='reset' class='btn btn-warning'>Nhập lại</button>
+            <button class='btn btn-primary'>Lưu</button>
+
         </div>
 
 

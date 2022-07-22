@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -41,6 +43,13 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         // 1. Khởi tạo đối tượng user mới
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'avatar' => 'file',
+            'birthday' => 'required|date',
+            'username' => 'required|min:8'
+        ]);
         $user = new User();
         // 2. Cập nhật giá trị cho các thuộc tính của $user
         // $user->name = $request->name;
@@ -111,10 +120,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(UserUpdateRequest $request, $user)
     {
         $user = User::find($user);
         $user->fill($request->all());
+        // \dd($user);
         if($request->hasFile('avatar')){
             $path = 'images/users/'. $user->avatar;
             if(File::exists($path)){
@@ -126,9 +136,10 @@ class UsersController extends Controller
             $file->storeAs('images/users', $filename);
             $user->avatar = $filename;
         }
-//         else{
-//             $user->avatar = '';
-//         }
+        // else{
+        //     $user->avatar = '';
+        // }
+        // \dd($user);
         $user->update();
         return redirect()->route('users.index');
     }

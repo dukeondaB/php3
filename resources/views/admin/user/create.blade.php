@@ -14,10 +14,18 @@
         <div class='form-group'>
             <label for="">Tên</label>
             <input type="text" name='name' class='form-control'>
+            @error('name')
+            <div class="text-danger">
+                {{'teen bắt buộc nhập'}} </div>
+            @enderror
         </div>
         <div class='form-group'>
             <label for="">Email</label>
             <input type="email" name='email' class='form-control'>
+            @error('email')
+            <div class="text-danger">
+                {{'mày sai rồi nhập lại đi'}} </div>
+            @enderror
         </div>
         <div class='form-group'>
             <label for="">Mật khẩu</label>
@@ -26,10 +34,18 @@
         <div class='form-group'>
             <label for="">Mã tài khoản</label>
             <input type="text" name='username' class='form-control'>
+            @error('username')
+            <div class="text-danger">
+                {{$message}} </div>
+            @enderror
         </div>
         <div class='form-group'>
             <label for="">Ngày sinh</label>
             <input type="date" name='birthday' class='form-control'>
+            @error('birthday')
+            <div class="text-danger">
+                {{$message}} </div>
+            @enderror
         </div>
         <div class='form-group'>
             <label for="">SDT</label>
